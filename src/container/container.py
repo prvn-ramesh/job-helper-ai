@@ -13,6 +13,9 @@ import yaml
 from application.workflows.discover_workflow import DiscoverWorkflow
 from application.workflows.triage_workflow import TriageWorkflow
 from core.config import settings
+from domain.qa.dict_answerer import DictAnswerer
+from domain.qa.llm_answerer import LLMAnswerer
+from domain.qa.qa_engine import QAEngine
 from domain.scrapers.ats_direct_scraper import ATSDirectScraper
 from domain.scrapers.instahyre_scraper import InstahyreScraper
 from domain.scrapers.jobspy_scraper import JobSpyScraper
@@ -85,6 +88,14 @@ class Container:
             tracker=self.tracker,
             filter_rules=filter_rules,
             min_score_threshold=float(self.settings.min_score_threshold),
+        )
+
+        # QA Engine
+        self.dict_answerer = DictAnswerer("config/answers.yaml")
+        self.llm_answerer = LLMAnswerer()
+        self.qa_engine = QAEngine(
+            dict_answerer=self.dict_answerer,
+            llm_answerer=self.llm_answerer,
         )
 
 

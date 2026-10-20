@@ -1,27 +1,27 @@
 # Candidate profile — edit this with your real information
 # This is the ground truth the system uses for all applications
 
-name: "Your Name"
-email: "your@email.com"
-phone: "+91 9999999999"
+name: "Praveen Ramesh"
+email: "praveen14aug01@gmail.com"
+phone: "+91 9019397062"
 location: "Bengaluru, India"
 
 # Experience
-years_of_experience: 4
+years_of_experience: 2
 current_title: "Machine Learning Engineer"
-headline: "ML Engineer with 4 years building LLM-based systems, RAG pipelines, and scalable AI infra"
+headline: "Machine Learning Engineer with experience designing and deploying production AI solutions powered by LLMs, RAG, and modern backend technologies"
 
 # Education
-degree: "Bachelor of Technology"
-institution: "IIT / NIT / Your University"
-graduation_year: 2021
+degree: "Master of Computer Applications (MCA)"
+institution: "Bangalore University"
+graduation_year: 2024
 
 # Job search preferences
 desired_roles:
+  - "Machine Learning Engineer"
   - "ML Engineer"
   - "AI Engineer"
   - "LLM Engineer"
-  - "Machine Learning Engineer"
   - "Applied AI Engineer"
   - "Research Engineer"
 
@@ -31,48 +31,50 @@ desired_locations:
   - "Remote"
   - "Mumbai"
 
-remote_preference: "hybrid"   # remote | hybrid | onsite | any
-min_salary_inr: 1500000       # 15 LPA minimum
+remote_preference: "any"
+min_salary_inr: 1200000
 
 # Skills — used for scoring JDs
 primary_skills:
-  - PyTorch
   - Python
-  - LLM
+  - SQL
+  - LLM Agents
   - RAG
+  - PyTorch
   - Transformers
-  - HuggingFace
-  - LangChain
-  - LlamaIndex
-  - CUDA
-  - FastAPI
-  - Docker
-  - Kubernetes
+  - Hugging Face
+  - ONNXRuntime
+  - LangGraph
+  - OpenAI API
+  - Pinecone
+  - FAISS
+  - BM25
+  - Prompt Engineering
 
 secondary_skills:
-  - JAX
-  - TensorFlow
-  - MLflow
-  - Triton
-  - Rust
-  - Redis
+  - FastAPI
+  - Docker
   - PostgreSQL
-  - AWS
-  - GCP
+  - AWS Glue
+  - Celery
+  - MongoDB
+  - Flask
+  - Git
+  - Linux
 
 # Work authorization
 work_authorization: "Indian Citizen"
 requires_visa_sponsorship: false
 
 # ATS screening answers
-current_ctc_inr: 1200000      # 12 LPA
-expected_ctc_inr: 1800000     # 18 LPA
-notice_period: "Immediate"    # or "30 days", "60 days"
+current_ctc_inr: 800000
+expected_ctc_inr: 1500000
+notice_period: "Immediate"
 
-# Resume (set to null to use auto-tailor mode)
-resume_pdf_path: null
+# Resume
+resume_pdf_path: "/home/praveen/Documents/personal/Praveen_ML_RESUME.pdf"
 
 # Online presence
-linkedin_url: "https://linkedin.com/in/yourprofile"
-github_url: "https://github.com/yourgithub"
-portfolio_url: ""
+linkedin_url: "https://linkedin.com/in/prvn-ramesh"
+github_url: "https://github.com/prvn-ramesh"
+portfolio_url: "https://github.com/prvn-ramesh/QueryClassifier"
