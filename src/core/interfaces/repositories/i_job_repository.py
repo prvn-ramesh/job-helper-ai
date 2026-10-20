@@ -38,3 +38,16 @@ class IJobRepository(ABC):
     @abstractmethod
     async def get_by_uid(self, job_uid: str) -> JobRecord | None:
         """Fetch single job by uid."""
+
+    @abstractmethod
+    async def update_application_result(
+        self,
+        job_uid: str,
+        status: JobStatus,
+        *,
+        screenshot_path: str | None = None,
+        filled_fields: str | None = None,
+        notes: str | None = None,
+        applied_at=None,
+    ) -> None:
+        """Update job with application result details."""

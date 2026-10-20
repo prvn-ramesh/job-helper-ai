@@ -170,3 +170,34 @@ class SQLiteJobRepository(IJobRepository):
         with get_db() as conn:
             row = conn.execute("SELECT * FROM jobs WHERE job_uid = ?", (job_uid,)).fetchone()
             return _row_to_job(row) if row else None
+
+    async def update_application_result(
+        self,
+        job_uid: str,
+        status: JobStatus,
+        *,
+        screenshot_path: str | None = None,
+        filled_fields: str | None = None,
+        notes: str | None = None,
+        applied_at=None,
+    ) -> None:
+        with get_db() as conn:
+            conn.execute(
+                """
+                UPDATE jobs SET
+                    status          = ?,
+                    screenshot_path = COALESCE(?, screenshot_path),
+                    filled_fields   = COALESCE(?, filled_fields),
+                    notes           = COALESCE(?, notes),
+                    applied_at      = COALESCE(?, applied_at)
+                WHERE job_uid = ?
+                """,
+                (
+                    status.value,
+                    screenshot_path,
+                    filled_fields,
+                    notes,
+                    applied_at.isoformat() if applied_at else None,
+                    job_uid,
+                ),
+            )

@@ -67,8 +67,8 @@ work_authorization: "Indian Citizen"
 requires_visa_sponsorship: false
 
 # ATS screening answers
-current_ctc_inr: 800000
-expected_ctc_inr: 1500000
+current_ctc_inr: 400000
+expected_ctc_inr: 800000
 notice_period: "Immediate"
 
 # Resume

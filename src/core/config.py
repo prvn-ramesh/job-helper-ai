@@ -37,9 +37,11 @@ class Settings(BaseSettings):
 
     # Limits
     max_applications_per_day: int = 25
+    daily_apply_limit: int = 20
     min_score_threshold: float = 6.0
 
     # Feature toggles
+    application_mode: str = "semi-auto"  # semi-auto | full-auto
     eligibility_check_enabled: bool = True
     review_method: str = "web"  # web | telegram | both
 

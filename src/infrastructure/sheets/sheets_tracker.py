@@ -311,3 +311,8 @@ class SheetsTracker(ITracker):
             self._jobs_ws.update_cell(
                 row_idx, applied_col, extra["applied_at"].strftime("%Y-%m-%d %H:%M")
             )
+
+        # Update Notes if present
+        if extra.get("notes"):
+            notes_col = HEADERS.index("Notes") + 1
+            self._jobs_ws.update_cell(row_idx, notes_col, str(extra["notes"]))

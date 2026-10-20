@@ -55,6 +55,10 @@ class MockJobRepo(IJobRepository):
     async def get_by_uid(self, job_uid: str):
         return self.jobs.get(job_uid)
 
+    async def update_application_result(self, job_uid: str, status: JobStatus, **kwargs) -> None:
+        if job_uid in self.jobs:
+            self.jobs[job_uid].status = status
+
 
 class MockTracker(ITracker):
     def __init__(self):

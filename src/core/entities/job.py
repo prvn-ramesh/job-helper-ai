@@ -12,6 +12,7 @@ class JobStatus(str, Enum):
     FILTERED_OUT = "filtered_out"
     PENDING_REVIEW = "pending_review"
     APPLIED = "applied"
+    FAILED = "failed"
     REJECTED = "rejected"
     SKIPPED = "skipped"
     # Human-updated
@@ -72,3 +73,11 @@ class JobRecord:
     # Review gate
     screenshot_path: str | None = None
     filled_fields: str | None = None  # JSON snapshot of filled values
+
+    @property
+    def uid(self) -> str:
+        return self.job_uid
+
+    @property
+    def url(self) -> str:
+        return self.apply_url

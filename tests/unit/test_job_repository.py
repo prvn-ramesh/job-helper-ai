@@ -37,3 +37,17 @@ async def test_job_repository_upsert_and_fetch():
     assert fetched is not None
     assert fetched.title == "AI Engineer"
     assert fetched.company == "Anthropic"
+
+    # Test update_application_result
+    await repo.update_application_result(
+        job_uid=unique_uid,
+        status=JobStatus.APPLIED,
+        screenshot_path="/data/screenshots/test.png",
+        notes="Applied via Greenhouse",
+        applied_at=datetime.now(UTC),
+    )
+    updated = await repo.get_by_uid(unique_uid)
+    assert updated.status == JobStatus.APPLIED
+    assert updated.screenshot_path == "/data/screenshots/test.png"
+    assert updated.notes == "Applied via Greenhouse"
+    assert updated.applied_at is not None

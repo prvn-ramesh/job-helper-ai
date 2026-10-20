@@ -75,10 +75,10 @@ def test_dict_answerer_experience_breakdown(candidate_profile):
 def test_dict_answerer_compensation(candidate_profile):
     answerer = DictAnswerer("config/answers.yaml")
     curr_ans = answerer.answer("What is your current CTC?", candidate_profile)
-    assert "800000" in str(curr_ans)
+    assert "400000" in str(curr_ans)
 
     exp_ans = answerer.answer("What is your expected salary?", candidate_profile)
-    assert "1500000" in str(exp_ans)
+    assert "900000" in str(exp_ans)
 
 
 def test_dict_answerer_education_and_links(candidate_profile):

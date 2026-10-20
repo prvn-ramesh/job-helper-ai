@@ -16,8 +16,9 @@ personal:
   portfolio: "https://github.com/prvn-ramesh/QueryClassifier"
 
 compensation:
-  current_ctc_inr: 800000
-  expected_ctc_inr: 1500000
+  current_ctc_inr: 400000
+  expected_ctc_inr: 900000
+  expected_ctc_range: "8-10 LPA"
   currency: "INR"
   notice_period: "Immediate"
   notice_period_days: 0

@@ -13,6 +13,7 @@ celery_app = Celery(
     include=[
         "infrastructure.celery.tasks.discover_task",
         "infrastructure.celery.tasks.triage_task",
+        "infrastructure.celery.tasks.apply_task",
     ],
 )
 
@@ -25,5 +26,6 @@ celery_app.conf.update(
     task_routes={
         "infrastructure.celery.tasks.discover_task.*": {"queue": "discover"},
         "infrastructure.celery.tasks.triage_task.*": {"queue": "triage"},
+        "infrastructure.celery.tasks.apply_task.*": {"queue": "apply"},
     },
 )

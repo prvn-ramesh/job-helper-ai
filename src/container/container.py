@@ -10,9 +10,14 @@ from pathlib import Path
 
 import yaml
 
+from application.workflows.apply_workflow import ApplyWorkflow
 from application.workflows.discover_workflow import DiscoverWorkflow
 from application.workflows.triage_workflow import TriageWorkflow
 from core.config import settings
+from domain.appliers.ashby_applier import AshbyApplier
+from domain.appliers.greenhouse_applier import GreenhouseApplier
+from domain.appliers.lever_applier import LeverApplier
+from domain.appliers.review_gate import ReviewGate
 from domain.qa.dict_answerer import DictAnswerer
 from domain.qa.llm_answerer import LLMAnswerer
 from domain.qa.qa_engine import QAEngine
@@ -21,6 +26,7 @@ from domain.scrapers.instahyre_scraper import InstahyreScraper
 from domain.scrapers.jobspy_scraper import JobSpyScraper
 from domain.scrapers.wellfound_scraper import WellfoundScraper
 from domain.triage.profile_loader import load_profile
+from infrastructure.browser.browser_manager import BrowserManager
 from infrastructure.database.job_repository import SQLiteJobRepository
 from infrastructure.sheets.sheets_tracker import SheetsTracker
 
@@ -96,6 +102,38 @@ class Container:
         self.qa_engine = QAEngine(
             dict_answerer=self.dict_answerer,
             llm_answerer=self.llm_answerer,
+        )
+
+        # Worker 3: Appliers & Review Gate
+        self.browser_manager = BrowserManager(headless=self.settings.headless)
+        self.review_gate = ReviewGate("data/pending_reviews.json")
+        self.greenhouse_applier = GreenhouseApplier(
+            browser_manager=self.browser_manager,
+            qa_engine=self.qa_engine,
+            review_gate=self.review_gate,
+        )
+        self.lever_applier = LeverApplier(
+            browser_manager=self.browser_manager,
+            qa_engine=self.qa_engine,
+            review_gate=self.review_gate,
+        )
+        self.ashby_applier = AshbyApplier(
+            browser_manager=self.browser_manager,
+            qa_engine=self.qa_engine,
+            review_gate=self.review_gate,
+        )
+        self.appliers = [
+            self.greenhouse_applier,
+            self.lever_applier,
+            self.ashby_applier,
+        ]
+
+        self.apply_workflow = ApplyWorkflow(
+            job_repo=self.job_repo,
+            tracker=self.tracker,
+            appliers=self.appliers,
+            profile=self.profile,
+            review_gate=self.review_gate,
         )
 
 
