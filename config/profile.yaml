@@ -1,80 +1,60 @@
-# Candidate profile — edit this with your real information
-# This is the ground truth the system uses for all applications
-
-name: "Praveen Ramesh"
-email: "praveen14aug01@gmail.com"
-phone: "+91 9019397062"
-location: "Bengaluru, India"
-
-# Experience
+name: Praveen Ramesh
+email: praveen14aug01@gmail.com
+phone: +91 9019397062
+location: Bengaluru, India
 years_of_experience: 2
-current_title: "Machine Learning Engineer"
-headline: "Machine Learning Engineer with experience designing and deploying production AI solutions powered by LLMs, RAG, and modern backend technologies"
-
-# Education
-degree: "Master of Computer Applications (MCA)"
-institution: "Bangalore University"
+current_title: Machine Learning Engineer
+headline: Machine Learning Engineer with experience designing and deploying production
+  AI solutions powered by LLMs, RAG, and modern backend technologies
+degree: Master of Computer Applications (MCA)
+institution: Bangalore University
 graduation_year: 2024
-
-# Job search preferences
 desired_roles:
-  - "Machine Learning Engineer"
-  - "ML Engineer"
-  - "AI Engineer"
-  - "LLM Engineer"
-  - "Applied AI Engineer"
-  - "Research Engineer"
-
+- Machine Learning Engineer
+- ML Engineer
+- AI Engineer
+- LLM Engineer
+- Applied AI Engineer
+- Research Engineer
 desired_locations:
-  - "Bengaluru"
-  - "Hyderabad"
-  - "Remote"
-  - "Mumbai"
-
-remote_preference: "any"
+- Bengaluru
+- Hyderabad
+- Remote
+- Mumbai
+remote_preference: any
 min_salary_inr: 1200000
-
-# Skills — used for scoring JDs
 primary_skills:
-  - Python
-  - SQL
-  - LLM Agents
-  - RAG
-  - PyTorch
-  - Transformers
-  - Hugging Face
-  - ONNXRuntime
-  - LangGraph
-  - OpenAI API
-  - Pinecone
-  - FAISS
-  - BM25
-  - Prompt Engineering
-
+- Python
+- SQL
+- LLM Agents
+- RAG
+- PyTorch
+- Transformers
+- Hugging Face
+- ONNXRuntime
+- LangGraph
+- OpenAI API
+- Pinecone
+- FAISS
+- BM25
+- Prompt Engineering
 secondary_skills:
-  - FastAPI
-  - Docker
-  - PostgreSQL
-  - AWS Glue
-  - Celery
-  - MongoDB
-  - Flask
-  - Git
-  - Linux
-
-# Work authorization
-work_authorization: "Indian Citizen"
+- FastAPI
+- Docker
+- PostgreSQL
+- AWS Glue
+- Celery
+- MongoDB
+- Flask
+- Git
+- Linux
+work_authorization: Indian Citizen
 requires_visa_sponsorship: false
-
-# ATS screening answers
 current_ctc_inr: 400000
 expected_ctc_inr: 800000
-notice_period: "Immediate"
-
-# Resume
-resume_pdf_path: "/home/praveen/Documents/personal/Praveen_ML_RESUME.pdf"
-
-# Online presence
-linkedin_url: "https://linkedin.com/in/prvn-ramesh"
-github_url: "https://github.com/prvn-ramesh"
-portfolio_url: "https://github.com/prvn-ramesh/QueryClassifier"
+notice_period: Immediate
+resume_pdf_path: /home/praveen/Documents/personal/Praveen_ML_RESUME.pdf
+linkedin_url: https://linkedin.com/in/prvn-ramesh
+github_url: https://github.com/prvn-ramesh
+portfolio_url: https://github.com/prvn-ramesh/QueryClassifier
+resume_strategy: uploaded_pdf

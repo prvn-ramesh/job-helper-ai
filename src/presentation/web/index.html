@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AutoJob AI — Autonomous AI/ML Job Application Engine</title>
+  <!-- Google Fonts: Outfit & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <!-- Header / Navigation -->
+  <header class="app-header">
+    <div class="header-container">
+      <div class="brand">
+        <div class="brand-icon">⚡</div>
+        <div class="brand-text">
+          <h1>AutoJob <span class="gradient-text">AI</span></h1>
+          <span class="system-status"><span class="pulse-dot"></span> Pipeline Active</span>
+        </div>
+      </div>
+
+      <nav class="nav-tabs" id="nav-tabs">
+        <button class="nav-tab active" data-tab="overview" id="tab-overview-btn">
+          <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+          Overview
+        </button>
+        <button class="nav-tab" data-tab="reviews" id="tab-reviews-btn">
+          <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+          Review Gate <span class="badge-count" id="review-badge-count">0</span>
+        </button>
+        <button class="nav-tab" data-tab="jobs" id="tab-jobs-btn">
+          <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
+          Jobs Pipeline
+        </button>
+        <button class="nav-tab" data-tab="settings" id="tab-settings-btn">
+          <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+          Candidate Profile & CTC
+        </button>
+      </nav>
+
+      <div class="header-actions">
+        <a id="btn-open-sheets" href="https://docs.google.com/spreadsheets/d/16N4kXGHWP9KhyKyRoqvjNJTMX20W5LaM5gfs3AiQOzg/edit" target="_blank" rel="noopener" class="btn btn-secondary">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+          Google Sheet
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="app-main">
+
+    <!-- TAB 1: OVERVIEW -->
+    <section id="view-overview" class="view-panel active">
+      <div class="section-title-bar">
+        <div>
+          <h2>Mission Control</h2>
+          <p class="subtitle">Autonomous 3-worker pipeline orchestration & live pipeline metrics</p>
+        </div>
+        <div class="mode-badge" id="app-mode-indicator">Mode: Semi-Auto (Review Gate)</div>
+      </div>
+
+      <!-- KPI Grid -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon indigo">📡</div>
+          <div class="stat-info">
+            <span class="stat-label">Total Discovered</span>
+            <span class="stat-value" id="stat-discovered">--</span>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon purple">🎯</div>
+          <div class="stat-info">
+            <span class="stat-label">Approved Matches</span>
+            <span class="stat-value" id="stat-approved">--</span>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon red">🛡️</div>
+          <div class="stat-info">
+            <span class="stat-label">Filtered Out</span>
+            <span class="stat-value" id="stat-filtered">--</span>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon amber">⏳</div>
+          <div class="stat-info">
+            <span class="stat-label">Pending Review</span>
+            <span class="stat-value" id="stat-pending">--</span>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon emerald">🚀</div>
+          <div class="stat-info">
+            <span class="stat-label">Applied Today</span>
+            <span class="stat-value" id="stat-applied">--</span>
+            <span class="stat-subtext" id="stat-daily-limit">Daily limit: 20</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Worker Control Center -->
+      <div class="action-panel">
+        <div class="action-card">
+          <div class="action-header">
+            <span class="worker-tag">Worker 1</span>
+            <h3>Job Discovery</h3>
+            <p>Direct REST scrapers (Greenhouse, Lever, Ashby) + Multi-board scraper</p>
+          </div>
+          <button id="btn-trigger-discover" class="btn btn-primary">
+            <span class="btn-text">Run Discovery</span>
+            <span class="spinner hidden"></span>
+          </button>
+        </div>
+
+        <div class="action-card">
+          <div class="action-header">
+            <span class="worker-tag">Worker 2</span>
+            <h3>Triage & Eligibility</h3>
+            <p>1-10 skill scoring, foreign visa filtering, and experience verification</p>
+          </div>
+          <button id="btn-trigger-triage" class="btn btn-primary">
+            <span class="btn-text">Run Triage</span>
+            <span class="spinner hidden"></span>
+          </button>
+        </div>
+
+        <div class="action-card">
+          <div class="action-header">
+            <span class="worker-tag">Worker 3</span>
+            <h3>Apply Batch</h3>
+            <p>Playwright stealth form filling, PDF upload, and screenshot verification</p>
+          </div>
+          <button id="btn-trigger-apply" class="btn btn-accent">
+            <span class="btn-text">Run Batch Apply</span>
+            <span class="spinner hidden"></span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Notification Toast Container -->
+      <div id="toast-container" class="toast-container"></div>
+    </section>
+
+    <!-- TAB 2: REVIEW GATE -->
+    <section id="view-reviews" class="view-panel">
+      <div class="section-title-bar">
+        <div>
+          <h2>Human-in-the-Loop Review Gate</h2>
+          <p class="subtitle">Inspect filled form fields and verification screenshots before granting submission approval</p>
+        </div>
+      </div>
+
+      <div id="review-list-container" class="review-list-container">
+        <!-- Rendered dynamically -->
+        <div class="empty-state" id="empty-reviews-state">
+          <div class="empty-icon">🛡️</div>
+          <h3>No Pending Applications</h3>
+          <p>All applications have been reviewed or are in processing. When Worker 3 runs in semi-auto mode, filled applications will appear here with full screenshots for your sign-off.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 3: JOBS PIPELINE TABLE -->
+    <section id="view-jobs" class="view-panel">
+      <div class="section-title-bar">
+        <div>
+          <h2>Job Pipeline & Tracking</h2>
+          <p class="subtitle">Complete database records synced in real-time with Google Sheets</p>
+        </div>
+      </div>
+
+      <!-- Filters Bar -->
+      <div class="filters-bar">
+        <div class="search-box">
+          <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          <input type="text" id="job-search-input" placeholder="Search by role title or company...">
+        </div>
+
+        <div class="filter-group">
+          <select id="filter-status" class="select-control">
+            <option value="all">All Statuses</option>
+            <option value="approved">Approved</option>
+            <option value="pending_review">Pending Review</option>
+            <option value="applied">Applied</option>
+            <option value="filtered_out">Filtered Out</option>
+            <option value="discovered">Discovered</option>
+          </select>
+
+          <select id="filter-platform" class="select-control">
+            <option value="">All Platforms</option>
+            <option value="greenhouse">Greenhouse</option>
+            <option value="lever">Lever</option>
+            <option value="ashby">Ashby</option>
+            <option value="linkedin">LinkedIn</option>
+          </select>
+
+          <select id="filter-work-mode" class="select-control">
+            <option value="">All Work Modes</option>
+            <option value="remote">Remote</option>
+            <option value="onsite">Onsite</option>
+            <option value="hybrid">Hybrid</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Table Container -->
+      <div class="table-container">
+        <table class="jobs-table" id="jobs-table">
+          <thead>
+            <tr>
+              <th>Role & Company</th>
+              <th>Platform</th>
+              <th>Location</th>
+              <th>Min Exp</th>
+              <th>Fit Score</th>
+              <th>Status</th>
+              <th>Notes / Reason</th>
+              <th>Link</th>
+            </tr>
+          </thead>
+          <tbody id="jobs-table-body">
+            <!-- Dynamically populated -->
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Pagination -->
+      <div class="pagination-bar">
+        <span id="pagination-info" class="pagination-info">Showing 0-0 of 0</span>
+        <div class="pagination-buttons">
+          <button id="btn-prev-page" class="btn btn-secondary btn-sm" disabled>Previous</button>
+          <button id="btn-next-page" class="btn btn-secondary btn-sm" disabled>Next</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 4: PROFILE & PREFERENCES -->
+    <section id="view-settings" class="view-panel">
+      <div class="section-title-bar">
+        <div>
+          <h2>Candidate Profile & Automation Preferences</h2>
+          <p class="subtitle">Ground truth facts for automated form population and screening rules</p>
+        </div>
+      </div>
+
+      <div class="settings-grid">
+        <!-- Form Settings Card -->
+        <div class="settings-card">
+          <h3 class="card-title">Compensation & Experience Filters</h3>
+          <form id="profile-form">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="inp-current-ctc">Current CTC (INR / Per Annum)</label>
+                <div class="input-with-prefix">
+                  <span class="prefix">₹</span>
+                  <input type="number" id="inp-current-ctc" value="400000" step="50000" required>
+                </div>
+                <span class="field-hint">e.g. 4,00,000 (4 LPA)</span>
+              </div>
+
+              <div class="form-group">
+                <label for="inp-expected-ctc">Expected CTC (INR / Per Annum)</label>
+                <div class="input-with-prefix">
+                  <span class="prefix">₹</span>
+                  <input type="number" id="inp-expected-ctc" value="800000" step="50000" required>
+                </div>
+                <span class="field-hint">Target range: 8L – 10L per annum</span>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="inp-experience-years">Total Professional Experience</label>
+                <div class="input-with-suffix">
+                  <input type="number" id="inp-experience-years" value="2" min="0" max="30" step="0.5" required>
+                  <span class="suffix">Years</span>
+                </div>
+                <span class="field-hint">Jobs requiring &gt; 3 yrs will be automatically filtered out</span>
+              </div>
+
+              <div class="form-group">
+                <label for="inp-notice-period">Notice Period</label>
+                <select id="inp-notice-period" class="select-control">
+                  <option value="Immediate" selected>Immediate</option>
+                  <option value="15 Days">15 Days</option>
+                  <option value="30 Days">30 Days</option>
+                  <option value="60 Days">60 Days</option>
+                </select>
+                <span class="field-hint">Deterministically populated into notice period form questions</span>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="inp-location">Target City & Residence</label>
+                <input type="text" id="inp-location" value="Bengaluru, India" required>
+                <span class="field-hint">Only jobs in Bengaluru or Remote will be considered eligible</span>
+              </div>
+
+              <div class="form-group">
+                <label>Work Authorization & Visa</label>
+                <div class="toggle-control">
+                  <label class="switch">
+                    <input type="checkbox" id="toggle-visa-sponsorship">
+                    <span class="slider round"></span>
+                  </label>
+                  <span class="toggle-label" id="label-visa-sponsorship">No Foreign Visa Sponsorship Needed</span>
+                </div>
+                <span class="field-hint">Filters out onsite/hybrid jobs in US/UK/EU; Remote jobs remain eligible</span>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label>Resume Application Strategy</label>
+                <div class="radio-pill-group">
+                  <label class="radio-pill">
+                    <input type="radio" name="resume_strategy" value="uploaded_pdf" checked>
+                    <span>📄 Use Master Resume PDF</span>
+                  </label>
+                  <label class="radio-pill">
+                    <input type="radio" name="resume_strategy" value="auto_tailor">
+                    <span>✨ Auto-Tailor Resume per Job</span>
+                  </label>
+                </div>
+                <span class="field-hint">Master PDF: <code>/home/praveen/Documents/personal/Praveen_ML_RESUME.pdf</code></span>
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <button type="submit" id="btn-save-profile" class="btn btn-primary">
+                Save Candidate Preferences
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Verified Facts Card -->
+        <div class="settings-card info-card">
+          <h3 class="card-title">Verified Profile Facts</h3>
+          <div class="facts-list">
+            <div class="fact-item">
+              <span class="fact-key">Full Name</span>
+              <span class="fact-val" id="fact-name">Praveen Ramesh</span>
+            </div>
+            <div class="fact-item">
+              <span class="fact-key">Email</span>
+              <span class="fact-val" id="fact-email">praveen14aug01@gmail.com</span>
+            </div>
+            <div class="fact-item">
+              <span class="fact-key">Phone</span>
+              <span class="fact-val" id="fact-phone">+91 9019397062</span>
+            </div>
+            <div class="fact-item">
+              <span class="fact-key">Current Role</span>
+              <span class="fact-val" id="fact-title">Machine Learning Engineer</span>
+            </div>
+            <div class="fact-item">
+              <span class="fact-key">Education</span>
+              <span class="fact-val" id="fact-education">MCA, Bangalore University (2024)</span>
+            </div>
+            <div class="fact-item">
+              <span class="fact-key">Primary Skills</span>
+              <div class="skill-tags" id="fact-skills">
+                <span class="tag">Python</span>
+                <span class="tag">PyTorch</span>
+                <span class="tag">LLMs</span>
+                <span class="tag">RAG</span>
+                <span class="tag">LangGraph</span>
+              </div>
+            </div>
+            <div class="fact-item">
+              <span class="fact-key">LinkedIn</span>
+              <span class="fact-val"><a href="https://linkedin.com/in/prvn-ramesh" target="_blank" rel="noopener">linkedin.com/in/prvn-ramesh</a></span>
+            </div>
+            <div class="fact-item">
+              <span class="fact-key">GitHub</span>
+              <span class="fact-val"><a href="https://github.com/prvn-ramesh" target="_blank" rel="noopener">github.com/prvn-ramesh</a></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Screenshot Modal Viewer -->
+  <div id="screenshot-modal" class="modal hidden">
+    <div class="modal-overlay" id="modal-overlay"></div>
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="modal-title">Verification Screenshot</h3>
+        <button id="modal-close-btn" class="modal-close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <img id="modal-img" src="" alt="Application Form Screenshot">
+      </div>
+    </div>
+  </div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

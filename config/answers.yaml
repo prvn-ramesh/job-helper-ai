@@ -1,28 +1,23 @@
-# Ground truth deterministic answers for job application screening questions
-# Pattern categories and responses
-
 personal:
-  full_name: "Praveen Ramesh"
-  first_name: "Praveen"
-  last_name: "Ramesh"
-  email: "praveen14aug01@gmail.com"
-  phone: "+91 9019397062"
-  city: "Bengaluru"
-  state: "Karnataka"
-  country: "India"
-  postal_code: "560001"
-  linkedin: "https://linkedin.com/in/prvn-ramesh"
-  github: "https://github.com/prvn-ramesh"
-  portfolio: "https://github.com/prvn-ramesh/QueryClassifier"
-
+  full_name: Praveen Ramesh
+  first_name: Praveen
+  last_name: Ramesh
+  email: praveen14aug01@gmail.com
+  phone: +91 9019397062
+  city: Bengaluru
+  state: Karnataka
+  country: India
+  postal_code: '560001'
+  linkedin: https://linkedin.com/in/prvn-ramesh
+  github: https://github.com/prvn-ramesh
+  portfolio: https://github.com/prvn-ramesh/QueryClassifier
 compensation:
   current_ctc_inr: 400000
-  expected_ctc_inr: 900000
-  expected_ctc_range: "8-10 LPA"
-  currency: "INR"
-  notice_period: "Immediate"
+  expected_ctc_inr: 800000
+  expected_ctc_range: 8-10 LPA
+  currency: INR
+  notice_period: Immediate
   notice_period_days: 0
-
 experience:
   total_years: 2
   python_years: 2
@@ -34,28 +29,24 @@ experience:
   sql_years: 2
   docker_years: 1.5
   fastapi_years: 1.5
-
 education:
-  degree: "Master of Computer Applications (MCA)"
-  degree_level: "Master's Degree"
-  field_of_study: "Computer Science & Machine Learning"
-  institution: "Bangalore University"
+  degree: Master of Computer Applications (MCA)
+  degree_level: Master's Degree
+  field_of_study: Computer Science & Machine Learning
+  institution: Bangalore University
   graduation_year: 2024
   cgpa: 8.04
-
 work_authorization:
   authorized_in_india: true
   requires_visa_sponsorship: false
   authorized_in_us: false
-  citizenship: "Indian"
-
+  citizenship: Indian
 preferences:
   willing_to_relocate: true
   open_to_remote: true
   available_immediately: true
-
 eeoc:
-  gender: "Male"
-  race_ethnicity: "Asian (Indian)"
-  veteran_status: "No"
-  disability_status: "No"
+  gender: Male
+  race_ethnicity: Asian (Indian)
+  veteran_status: 'No'
+  disability_status: 'No'

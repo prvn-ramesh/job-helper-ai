@@ -78,7 +78,7 @@ def test_dict_answerer_compensation(candidate_profile):
     assert "400000" in str(curr_ans)
 
     exp_ans = answerer.answer("What is your expected salary?", candidate_profile)
-    assert "900000" in str(exp_ans)
+    assert "800000" in str(exp_ans)
 
 
 def test_dict_answerer_education_and_links(candidate_profile):
