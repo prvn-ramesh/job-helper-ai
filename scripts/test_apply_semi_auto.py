@@ -1,6 +1,7 @@
 """Live Semi-Auto Application Run on First Approved Job."""
 
 import asyncio
+
 from container.container import container
 from core.entities.job import JobStatus
 

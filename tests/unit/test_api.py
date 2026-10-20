@@ -81,3 +81,14 @@ async def test_api_profile_get_and_update():
         updated = put_res.json()["profile"]
         assert updated["current_ctc_inr"] == 400000
         assert updated["expected_ctc_inr"] == 800000
+
+
+@pytest.mark.asyncio
+async def test_api_actions_endpoints():
+    async with AsyncClient(transport=ASGITransport(app=app), base_url="http://test") as ac:
+        # Test triage trigger endpoint
+        triage_resp = await ac.post("/api/v1/actions/triage")
+        assert triage_resp.status_code == 200
+        data = triage_resp.json()
+        assert data["status"] == "completed"
+        assert "results" in data

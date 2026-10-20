@@ -35,7 +35,7 @@ def score_job(job: JobRecord, profile: CandidateProfile) -> float:
     text = (job.title + " " + job.description[:5000]).lower()
     title_lower = job.title.lower()
 
-    # 1. Title match (up to 4.0 pts)
+    # 1. Title match (up to 5.5 pts)
     target_roles = profile.desired_roles or [
         "machine learning engineer",
         "ai engineer",
@@ -44,7 +44,7 @@ def score_job(job: JobRecord, profile: CandidateProfile) -> float:
         "research engineer",
     ]
     if any(role.lower() in title_lower for role in target_roles):
-        score += 3.0
+        score += 4.5
         # Bonus for specific sub-domain matches (LLM, RAG, Agents, Vision, GenAI)
         if any(
             kw in title_lower for kw in ("llm", "agent", "rag", "genai", "deep learning", "nlp")
@@ -54,7 +54,7 @@ def score_job(job: JobRecord, profile: CandidateProfile) -> float:
         kw in title_lower
         for kw in ("ml", "ai", "machine learning", "deep learning", "data science")
     ):
-        score += 2.0
+        score += 3.5
 
     # 2. Primary skills match (up to 4.0 pts)
     primary_skills = profile.primary_skills or _DEFAULT_CORE_SKILLS

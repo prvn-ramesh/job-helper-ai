@@ -32,7 +32,10 @@ class TriageWorkflow:
         self.filter_rules = filter_rules or {}
         self.min_score_threshold = min_score_threshold
 
-    async def execute(self, profile: CandidateProfile) -> dict[str, int]:
+    async def execute(self, profile: CandidateProfile | None = None) -> dict[str, int]:
+        if profile is None:
+            from container.container import container
+            profile = container.profile
         log.info("Starting Triage Workflow...")
         pending_jobs = await self.job_repo.get_by_status(JobStatus.DISCOVERED)
         log.info("Found %d discovered jobs to triage", len(pending_jobs))

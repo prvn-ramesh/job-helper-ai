@@ -38,7 +38,7 @@ class Settings(BaseSettings):
     # Limits
     max_applications_per_day: int = 25
     daily_apply_limit: int = 20
-    min_score_threshold: float = 6.0
+    min_score_threshold: float = 5.0
 
     # Feature toggles
     application_mode: str = "semi-auto"  # semi-auto | full-auto

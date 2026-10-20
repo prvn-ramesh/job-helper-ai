@@ -21,7 +21,7 @@ def candidate_profile():
         primary_skills=["Python", "PyTorch", "LLM", "RAG"],
         secondary_skills=["FastAPI", "Docker", "PostgreSQL"],
         requires_visa_sponsorship=False,
-        notice_period="Immediate",
+        notice_period="60 days",
         linkedin_url="https://linkedin.com/in/prvn-ramesh",
         github_url="https://github.com/prvn-ramesh",
     )
@@ -30,12 +30,12 @@ def candidate_profile():
 def test_dict_answerer_notice_period(candidate_profile):
     answerer = DictAnswerer("config/answers.yaml")
     ans = answerer.answer("What is your notice period?", candidate_profile)
-    assert ans == "Immediate"
+    assert ans == "60 days"
 
     # With form dropdown options
     options = ["15 Days", "30 Days", "Immediate", "60 Days"]
     opt_ans = answerer.answer("Notice period required:", candidate_profile, options=options)
-    assert opt_ans == "Immediate"
+    assert opt_ans == "60 Days"
 
 
 def test_dict_answerer_sponsorship(candidate_profile):
@@ -117,7 +117,7 @@ async def test_qa_engine_deterministic_resolution(candidate_profile):
     engine = QAEngine()
     result = await engine.answer_question("What is your notice period?", candidate_profile)
     assert result.source == "dict"
-    assert result.answer == "Immediate"
+    assert result.answer == "60 days"
     assert result.confidence == 1.0
 
 
@@ -146,5 +146,5 @@ def test_anti_hallucination_notice_period(candidate_profile):
         candidate_profile,
     )
     assert modified is True
-    assert sanitized == "Immediate"
+    assert sanitized == "60 days"
 

@@ -52,7 +52,7 @@ work_authorization: Indian Citizen
 requires_visa_sponsorship: false
 current_ctc_inr: 400000
 expected_ctc_inr: 800000
-notice_period: Immediate
+notice_period: 60 Days
 resume_pdf_path: /home/praveen/Documents/personal/Praveen_ML_RESUME.pdf
 linkedin_url: https://linkedin.com/in/prvn-ramesh
 github_url: https://github.com/prvn-ramesh

@@ -6,15 +6,11 @@ search_keywords:
   - "LLM engineer"
   - "applied AI"
   - "research engineer AI"
-  - "NLP engineer"
-  - "deep learning engineer"
 
 locations:
   - "Bengaluru"
   - "Hyderabad"
   - "Remote"
-  - "Mumbai"
-  - "Pune"
 
 # Filtering criteria (applied during triage and configurable via UI)
 filters:
@@ -26,8 +22,6 @@ filters:
     - "Bengaluru"
     - "Bangalore"
     - "Hyderabad"
-    - "Mumbai"
-    - "Pune"
   # Remote jobs are always eligible
   allow_any_remote: true
 
@@ -35,10 +29,15 @@ filters:
   candidate_experience_years: 2
   max_experience_gap_allowed: 1  # filter out jobs requiring > candidate_years + gap
 
+  # Minimum relevance score to approve (1.0 to 10.0)
+  min_score_threshold: 4.5
+
 
 # Platforms to scrape (enable/disable per platform)
 platforms:
   linkedin: true
+  indeed: true
+  glassdoor: true
   wellfound: true
   instahyre: true
   naukri: true
@@ -46,10 +45,11 @@ platforms:
   greenhouse: true
   lever: true
   ashby: true
-  glassdoor: false     # enable when Tier 1 is stable
-  indeed: false
   google_careers: false
   apple_jobs: false
+
+# Proxy round-robin for scrapers (only use authenticated residential proxies here)
+proxies: []
 
 # Blocked companies (never apply here)
 blocked_companies: []

@@ -16,8 +16,8 @@ compensation:
   expected_ctc_inr: 800000
   expected_ctc_range: 8-10 LPA
   currency: INR
-  notice_period: Immediate
-  notice_period_days: 0
+  notice_period: 60 days
+  notice_period_days: 60
 experience:
   total_years: 2
   python_years: 2

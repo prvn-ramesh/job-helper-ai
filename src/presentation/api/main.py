@@ -40,6 +40,7 @@ app.include_router(actions_router, prefix="/api/v1")
 # Mount Static Directories
 screenshots_dir = Path("data/screenshots")
 screenshots_dir.mkdir(parents=True, exist_ok=True)
+app.mount("/data/screenshots", StaticFiles(directory=str(screenshots_dir)), name="data_screenshots")
 app.mount("/screenshots", StaticFiles(directory=str(screenshots_dir)), name="screenshots")
 
 web_dir = Path("src/presentation/web")

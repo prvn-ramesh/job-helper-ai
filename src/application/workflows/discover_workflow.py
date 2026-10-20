@@ -30,7 +30,11 @@ class DiscoverWorkflow:
         self.job_repo = job_repo
         self.tracker = tracker
 
-    async def execute(self, profile: CandidateProfile) -> dict[str, int]:
+    async def execute(self, profile: CandidateProfile | None = None) -> dict[str, int]:
+        if profile is None:
+            from container.container import container
+            profile = container.profile
+
         log.info("Starting discovery workflow with %d scrapers", len(self.scrapers))
         tasks = [scraper.scrape(profile) for scraper in self.scrapers]
         scraped_lists = await asyncio.gather(*tasks, return_exceptions=True)

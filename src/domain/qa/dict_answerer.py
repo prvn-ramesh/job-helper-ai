@@ -37,8 +37,10 @@ class DictAnswerer:
             r"\b(?:notice\s*period|how\s*soon.*start|start\s*date|joining\s*(?:time|date)|earliest\s*start)\b",
             q,
         ):
-            ans = self.data.get("compensation", {}).get("notice_period", "Immediate")
-            return self._match_options(options, ans, default="Immediate")
+            ans = self.data.get("compensation", {}).get(
+                "notice_period", profile.notice_period if profile else "60 days"
+            )
+            return self._match_options(options, ans, default=ans)
 
         # 2. Current CTC / Compensation
         if re.search(r"\b(?:current\s*(?:ctc|salary|compensation|package|remuneration))\b", q):

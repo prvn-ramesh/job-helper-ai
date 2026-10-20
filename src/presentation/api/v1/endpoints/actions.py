@@ -19,11 +19,12 @@ class ApplyRequest(BaseModel):
 @router.post("/discover")
 async def trigger_discovery() -> dict[str, Any]:
     """Trigger Worker 1: ATS and job board scraping on-demand."""
-    new_jobs_count = await container.discover_workflow.execute()
+    result = await container.discover_workflow.execute(container.profile)
     return {
         "status": "completed",
         "worker": "discover",
-        "new_jobs_discovered": new_jobs_count,
+        "new_jobs_discovered": result.get("new_jobs", 0),
+        "total_scraped": result.get("total_scraped", 0),
     }
 
 

@@ -3,11 +3,18 @@ from __future__ import annotations
 """Eligibility and visa rules evaluator."""
 
 import re
+import unicodedata
 from typing import Any
 
 from core.entities.job import EligibilityVerdict, JobRecord, WorkMode
 from core.entities.profile import CandidateProfile
 from domain.triage.extractor import extract_experience, extract_location
+
+
+def _normalize(s: str | None) -> str:
+    if not s:
+        return ""
+    return unicodedata.normalize("NFKD", s).encode("ascii", "ignore").decode("utf-8").lower().strip()
 
 # Explicit disqualifiers in JD text
 _CLEARANCE_PATTERNS = [
@@ -112,20 +119,25 @@ def check_eligibility(
         return (EligibilityVerdict.ELIGIBLE, None)
 
     # For non-remote / onsite / hybrid jobs:
-    target_countries = [c.lower() for c in rules.get("target_countries", ["india"])]
+    target_countries = [_normalize(c) for c in rules.get("target_countries", ["india"])]
     target_cities = [
-        c.lower()
+        _normalize(c)
         for c in rules.get("target_cities", ["bengaluru", "bangalore", "hyderabad", "remote"])
     ]
 
-    job_country = (country or "").lower()
-    job_city = (city or "").lower()
+    job_country = _normalize(country)
+    job_city = _normalize(city)
+    job_loc = _normalize(job.location)
 
     # Check country match
-    country_matched = any(tc in job_country for tc in target_countries) if job_country else False
+    country_matched = (
+        any(tc in job_country or tc in job_loc for tc in target_countries)
+        if (job_country or job_loc)
+        else False
+    )
 
     # Check city match
-    city_matched = any(tc in job_city or tc in job.location.lower() for tc in target_cities)
+    city_matched = any(tc in job_city or tc in job_loc for tc in target_cities)
 
     # If foreign location and candidate doesn't have visa
     if not country_matched and job_country and job_country not in ("unknown", "remote / global"):

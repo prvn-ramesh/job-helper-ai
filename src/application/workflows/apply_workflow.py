@@ -141,9 +141,24 @@ class ApplyWorkflow:
 
         batch_size = min(limit, remaining_quota)
         approved_jobs = await self.job_repo.get_by_status(JobStatus.APPROVED)
-        to_process = approved_jobs[:batch_size]
 
-        log.info("Processing apply batch: %d jobs (Remaining quota: %d)", len(to_process), remaining_quota)
+        # Filter for approved jobs that have a supported automated ATS applier (Greenhouse, Lever, Ashby)
+        supported_jobs = [
+            j for j in approved_jobs if self.get_applier_for_url(j.apply_url) is not None
+        ]
+
+        if not supported_jobs:
+            log.info("No approved jobs found with supported ATS automation (Greenhouse, Lever, Ashby)")
+            return []
+
+        to_process = supported_jobs[:batch_size]
+
+        log.info(
+            "Processing apply batch: %d supported jobs (out of %d approved, Remaining quota: %d)",
+            len(to_process),
+            len(approved_jobs),
+            remaining_quota,
+        )
         results = []
 
         for idx, job in enumerate(to_process):

@@ -57,15 +57,18 @@ class Container:
         jobspy_sites = []
         if platforms_cfg.get("linkedin", True):
             jobspy_sites.append("linkedin")
-        if platforms_cfg.get("indeed", False):
+        if platforms_cfg.get("indeed", True):
             jobspy_sites.append("indeed")
-        if platforms_cfg.get("glassdoor", False):
+        if platforms_cfg.get("glassdoor", True):
             jobspy_sites.append("glassdoor")
+
+        proxies_list = self.job_prefs.get("proxies", [])
 
         self.jobspy_scraper = JobSpyScraper(
             sites=jobspy_sites,
             search_terms=keywords[:3],
             locations=locations[:2],
+            proxies=proxies_list,
         )
         self.wellfound_scraper = WellfoundScraper(headless=self.settings.headless)
         self.instahyre_scraper = InstahyreScraper(headless=self.settings.headless)
@@ -93,7 +96,7 @@ class Container:
             job_repo=self.job_repo,
             tracker=self.tracker,
             filter_rules=filter_rules,
-            min_score_threshold=float(self.settings.min_score_threshold),
+            min_score_threshold=float(filter_rules.get("min_score_threshold", self.settings.min_score_threshold)),
         )
 
         # QA Engine
