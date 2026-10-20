@@ -20,3 +20,10 @@ class ITracker(ABC):
         """Batch sync multiple job rows (default fallback loops upsert_job)."""
         for job in jobs:
             await self.upsert_job(job)
+
+    async def batch_sync_triage(
+        self, approved_jobs: list[JobRecord], filtered_jobs: list[JobRecord]
+    ) -> None:
+        """Batch sync triaged jobs (default fallback loops upsert_job)."""
+        for j in approved_jobs + filtered_jobs:
+            await self.upsert_job(j)

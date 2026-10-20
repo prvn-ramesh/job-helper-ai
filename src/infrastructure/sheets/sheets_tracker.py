@@ -165,6 +165,8 @@ class SheetsTracker(ITracker):
         self._client: gspread.Client | None = None
         self._jobs_ws: gspread.Worksheet | None = None
         self._trash_ws: gspread.Worksheet | None = None
+        self._jobs_uid_cache: dict[str, int] | None = None
+        self._trash_uid_cache: dict[str, int] | None = None
 
     def _connect(self) -> None:
         if self._client is not None:
@@ -176,11 +178,19 @@ class SheetsTracker(ITracker):
         log.info("✅ Connected to Google Sheets: %s", spreadsheet.title)
 
     def _find_row(self, ws: gspread.Worksheet, job_uid_short: str) -> int | None:
-        """Return 1-based row index if job_uid found in column A, else None."""
-        col_values = ws.col_values(1)
-        for i, val in enumerate(col_values[1:], start=2):  # skip header
-            if val == job_uid_short:
-                return i
+        """Return 1-based row index if job_uid found in column A, using cached row map."""
+        if ws == self._jobs_ws:
+            if self._jobs_uid_cache is None:
+                self._jobs_uid_cache = {
+                    val: i for i, val in enumerate(ws.col_values(1)[1:], start=2) if val
+                }
+            return self._jobs_uid_cache.get(job_uid_short)
+        if ws == self._trash_ws:
+            if self._trash_uid_cache is None:
+                self._trash_uid_cache = {
+                    val: i for i, val in enumerate(ws.col_values(1)[1:], start=2) if val
+                }
+            return self._trash_uid_cache.get(job_uid_short)
         return None
 
     async def upsert_job(self, job: JobRecord) -> None:
@@ -195,6 +205,8 @@ class SheetsTracker(ITracker):
                 self._trash_ws.update(f"A{row_idx}", [row_data])
             else:
                 self._trash_ws.append_row(row_data, value_input_option="USER_ENTERED")
+                if self._trash_uid_cache is not None:
+                    self._trash_uid_cache[short_uid] = len(self._trash_uid_cache) + 2
         else:
             # Goes to main Jobs tab
             row_idx = self._find_row(self._jobs_ws, short_uid)
@@ -203,12 +215,16 @@ class SheetsTracker(ITracker):
                 self._jobs_ws.update(f"A{row_idx}", [row_data])
             else:
                 self._jobs_ws.append_row(row_data, value_input_option="USER_ENTERED")
+                if self._jobs_uid_cache is not None:
+                    self._jobs_uid_cache[short_uid] = len(self._jobs_uid_cache) + 2
 
     async def batch_upsert_jobs(self, jobs: list[JobRecord]) -> None:
         """Batch append all new jobs in a single API call to avoid quota limits."""
         if not jobs:
             return
         self._connect()
+        self._jobs_uid_cache = None
+        self._trash_uid_cache = None
         existing_uids = set(self._jobs_ws.col_values(1)[1:])
         trash_existing_uids = set(self._trash_ws.col_values(1)[1:])
 
@@ -233,6 +249,49 @@ class SheetsTracker(ITracker):
         if trash_to_append:
             self._trash_ws.append_rows(trash_to_append, value_input_option="USER_ENTERED")
             log.info("Batch appended %d filtered jobs to trash tab", len(trash_to_append))
+
+    async def batch_sync_triage(
+        self, approved_jobs: list[JobRecord], filtered_jobs: list[JobRecord]
+    ) -> None:
+        """Batch sync triaged jobs to the respective sheets with minimal API calls."""
+        self._connect()
+        # 1. Append filtered jobs to trash tab
+        trash_existing = set(self._trash_ws.col_values(1)[1:])
+        trash_rows = [
+            _job_to_trash_row(j) for j in filtered_jobs if j.job_uid[:12] not in trash_existing
+        ]
+        if trash_rows:
+            self._trash_ws.append_rows(trash_rows, value_input_option="USER_ENTERED")
+            log.info("Batch appended %d jobs to Filtered tab", len(trash_rows))
+
+        # 2. Batch update Status, Score, and Filtered Reason in main Jobs sheet
+        uid_map = {val: i for i, val in enumerate(self._jobs_ws.col_values(1)[1:], start=2) if val}
+        status_col = HEADERS.index("Status") + 1
+        score_col = HEADERS.index("Score") + 1
+        reason_col = HEADERS.index("Filtered Reason") + 1
+
+        cells_to_update = []
+        import gspread.cell
+
+        for j in approved_jobs:
+            row_idx = uid_map.get(j.job_uid[:12])
+            if row_idx:
+                cells_to_update.append(gspread.cell.Cell(row_idx, status_col, "approved"))
+                if j.score is not None:
+                    cells_to_update.append(gspread.cell.Cell(row_idx, score_col, str(j.score)))
+
+        for j in filtered_jobs:
+            row_idx = uid_map.get(j.job_uid[:12])
+            if row_idx:
+                cells_to_update.append(gspread.cell.Cell(row_idx, status_col, "filtered_out"))
+                if j.score is not None:
+                    cells_to_update.append(gspread.cell.Cell(row_idx, score_col, str(j.score)))
+                if j.filter_reason:
+                    cells_to_update.append(gspread.cell.Cell(row_idx, reason_col, j.filter_reason))
+
+        if cells_to_update:
+            self._jobs_ws.update_cells(cells_to_update)
+            log.info("Batch updated %d cells in Jobs tab", len(cells_to_update))
 
     async def update_status(self, job_uid: str, status: JobStatus, **extra) -> None:
         self._connect()

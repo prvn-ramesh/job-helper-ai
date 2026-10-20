@@ -12,6 +12,7 @@ celery_app = Celery(
     backend=settings.redis_url,
     include=[
         "infrastructure.celery.tasks.discover_task",
+        "infrastructure.celery.tasks.triage_task",
     ],
 )
 
@@ -23,5 +24,6 @@ celery_app.conf.update(
     enable_utc=True,
     task_routes={
         "infrastructure.celery.tasks.discover_task.*": {"queue": "discover"},
+        "infrastructure.celery.tasks.triage_task.*": {"queue": "triage"},
     },
 )

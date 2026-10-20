@@ -11,6 +11,7 @@ from pathlib import Path
 import yaml
 
 from application.workflows.discover_workflow import DiscoverWorkflow
+from application.workflows.triage_workflow import TriageWorkflow
 from core.config import settings
 from domain.scrapers.ats_direct_scraper import ATSDirectScraper
 from domain.scrapers.instahyre_scraper import InstahyreScraper
@@ -76,6 +77,14 @@ class Container:
             scrapers=self.active_scrapers,
             job_repo=self.job_repo,
             tracker=self.tracker,
+        )
+
+        filter_rules = self.job_prefs.get("filters", {})
+        self.triage_workflow = TriageWorkflow(
+            job_repo=self.job_repo,
+            tracker=self.tracker,
+            filter_rules=filter_rules,
+            min_score_threshold=float(self.settings.min_score_threshold),
         )
 
 

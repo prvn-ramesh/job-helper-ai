@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from datetime import datetime
+from datetime import UTC, datetime
 from enum import Enum
 
 
@@ -62,7 +62,7 @@ class JobRecord:
     filter_reason: str | None = None  # Why filtered_out
     eligibility: EligibilityVerdict = EligibilityVerdict.UNKNOWN
 
-    discovered_at: datetime = field(default_factory=datetime.utcnow)
+    discovered_at: datetime = field(default_factory=lambda: datetime.now(UTC))
     applied_at: datetime | None = None
 
     resume_used: str | None = None  # filename or "auto-tailored"

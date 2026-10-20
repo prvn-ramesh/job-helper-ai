@@ -12,4 +12,9 @@ celery_app.conf.beat_schedule = {
         "schedule": crontab(minute="0", hour="*/6"),
         "options": {"queue": "discover"},
     },
+    "run-triage-every-hour": {
+        "task": "infrastructure.celery.tasks.triage_task.run_triage",
+        "schedule": crontab(minute="30", hour="*"),
+        "options": {"queue": "triage"},
+    },
 }
