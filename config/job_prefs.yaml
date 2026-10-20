@@ -1,0 +1,125 @@
+# Job preferences for discovery
+search_keywords:
+  - "machine learning engineer"
+  - "ML engineer"
+  - "AI engineer"
+  - "LLM engineer"
+  - "applied AI"
+  - "research engineer AI"
+  - "NLP engineer"
+  - "deep learning engineer"
+
+locations:
+  - "Bengaluru"
+  - "Hyderabad"
+  - "Remote"
+  - "Mumbai"
+  - "Pune"
+
+# Filtering criteria (applied during triage and configurable via UI)
+filters:
+  # Visa / Work Authorization restrictions
+  requires_visa_sponsorship: false
+  target_countries:
+    - "India"
+  target_cities:
+    - "Bengaluru"
+    - "Bangalore"
+    - "Hyderabad"
+    - "Mumbai"
+    - "Pune"
+  # Remote jobs are always eligible
+  allow_any_remote: true
+
+  # Experience filtering
+  candidate_experience_years: 2
+  max_experience_gap_allowed: 1  # filter out jobs requiring > candidate_years + gap
+
+
+# Platforms to scrape (enable/disable per platform)
+platforms:
+  linkedin: true
+  wellfound: true
+  instahyre: true
+  naukri: true
+  hirist: true
+  greenhouse: true
+  lever: true
+  ashby: true
+  glassdoor: false     # enable when Tier 1 is stable
+  indeed: false
+  google_careers: false
+  apple_jobs: false
+
+# Blocked companies (never apply here)
+blocked_companies: []
+
+# ATS company slugs for direct REST API scraping
+# Add more companies here — these are queried WITHOUT a browser
+ats_companies:
+  greenhouse:
+    - anthropic
+    - openai
+    - cohere
+    - mistral
+    - huggingface
+    - nvidia
+    - google-deepmind
+    - scale-ai
+    - weights-biases
+    - together-ai
+    - replicate
+    - modal-labs
+    - anyscale
+    - run-ai
+    - cerebras
+    - groq
+    - sambanova
+    - inflection-ai
+    - adept
+    - imbue
+    - taylorAI
+    - typeface
+    - perplexity-ai
+    - twelve-labs
+    - lightspeed-ai
+    - generally-intelligent
+    - stealth-mode-ai
+    - moonshot-ai
+
+  lever:
+    - deepmind
+    - openai
+    - stability-ai
+    - midjourney
+    - runway
+    - pika-labs
+    - character-ai
+    - cohere
+    - ai21labs
+    - aleph-alpha
+    - arcee-ai
+    - lm-sys
+    - nomic
+    - vectara
+    - chroma
+    - weaviate
+    - qdrant
+    - pinecone
+    - zilliz
+
+  ashby:
+    - anthropic
+    - mistral
+    - together
+    - fireworks-ai
+    - dspy
+    - langchain
+    - llamaindex
+    - haystack
+    - mlflow
+    - dagster
+    - prefect
+    - zenml
+    - bentoml
+    - ray

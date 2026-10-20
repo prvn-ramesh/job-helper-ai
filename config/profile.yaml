@@ -1,0 +1,78 @@
+# Candidate profile — edit this with your real information
+# This is the ground truth the system uses for all applications
+
+name: "Your Name"
+email: "your@email.com"
+phone: "+91 9999999999"
+location: "Bengaluru, India"
+
+# Experience
+years_of_experience: 4
+current_title: "Machine Learning Engineer"
+headline: "ML Engineer with 4 years building LLM-based systems, RAG pipelines, and scalable AI infra"
+
+# Education
+degree: "Bachelor of Technology"
+institution: "IIT / NIT / Your University"
+graduation_year: 2021
+
+# Job search preferences
+desired_roles:
+  - "ML Engineer"
+  - "AI Engineer"
+  - "LLM Engineer"
+  - "Machine Learning Engineer"
+  - "Applied AI Engineer"
+  - "Research Engineer"
+
+desired_locations:
+  - "Bengaluru"
+  - "Hyderabad"
+  - "Remote"
+  - "Mumbai"
+
+remote_preference: "hybrid"   # remote | hybrid | onsite | any
+min_salary_inr: 1500000       # 15 LPA minimum
+
+# Skills — used for scoring JDs
+primary_skills:
+  - PyTorch
+  - Python
+  - LLM
+  - RAG
+  - Transformers
+  - HuggingFace
+  - LangChain
+  - LlamaIndex
+  - CUDA
+  - FastAPI
+  - Docker
+  - Kubernetes
+
+secondary_skills:
+  - JAX
+  - TensorFlow
+  - MLflow
+  - Triton
+  - Rust
+  - Redis
+  - PostgreSQL
+  - AWS
+  - GCP
+
+# Work authorization
+work_authorization: "Indian Citizen"
+requires_visa_sponsorship: false
+
+# ATS screening answers
+current_ctc_inr: 1200000      # 12 LPA
+expected_ctc_inr: 1800000     # 18 LPA
+notice_period: "Immediate"    # or "30 days", "60 days"
+
+# Resume (set to null to use auto-tailor mode)
+resume_pdf_path: null
+
+# Online presence
+linkedin_url: "https://linkedin.com/in/yourprofile"
+github_url: "https://github.com/yourgithub"
+portfolio_url: ""
